@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" href="navb.png">
+	<title>Наш квартал</title>
+	<link rel="stylesheet" href="main.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+</head>
+<body style="background-color: #B5C6E9">
+	<!--header-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+		<a href="#" class="navbar-brand">
+			<img src="navb.png" alt="" class="d-inline-block align-top" width="30" height="30">
+			Наш квартал
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<div class="navbar-nav">
+				<a href="index.html" class="btn btn-outline-secondary nav-item nav-link active"><i class="fas fa-home"></i> Главная <span class="sr-only">(current)</span></a>
+				<a href="#" class="invisible nav-item nav-link"></a>
+				<a href="#" class="btn btn-outline-secondary nav-item nav-link"><i class="fas fa-phone-volume"></i> Контакты</a>
+				<a href="#" class="invisible nav-item nav-link"></a>
+				<a href="register.html" class="btn btn-outline-secondary nav-item nav-link"><i class="fas fa-address-book"></i> Регистрация</a>
+			</div>
+		</div>
+	</nav>
+	<!--container-->
+	<div class="container">
+		<!--carusel-->
+		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active"><img src="Stroymontazh.jpg" alt="" class="d-block w-100"></div>
+				<div class="carousel-item"><img src="24996133333333333333.jpg" alt="" class="d-block w-100"></div>
+				<div class="carousel-item"><img src="119_1.jpg" alt="" class="d-block w-100"></div>
+				<div class="carousel-item"><img src="Dom-iz-brusa.jpg" alt="" class="d-block w-100"></div>
+			</div>
+			<a href="#carouselExampleIndicators" class="carousel-control-prev" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a>
+			<a href="#carouselExampleIndicators" class="carousel-control-next" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a>
+		</div><br>
+		<!--text-->		
+		<div class="row">
+			<!--navber-->
+			<div class="col-md-4 alert alert-secondary" role="alert">
+				<!--calendar-->
+				<div>
+					<table id="calendar2">
+					  <thead>
+					    <tr><td>‹<td colspan="5"><td>›
+					    <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
+					  <tbody>
+					</table>
+
+					<script>
+					function Calendar2(id, year, month) {
+					var Dlast = new Date(year,month+1,0).getDate(),
+					    D = new Date(year,month,Dlast),
+					    DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
+					    DNfirst = new Date(D.getFullYear(),D.getMonth(),1).getDay(),
+					    calendar = '<tr>',
+					    month=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+					if (DNfirst != 0) {
+					  for(var  i = 1; i < DNfirst; i++) calendar += '<td>';
+					}else{
+					  for(var  i = 0; i < 6; i++) calendar += '<td>';
+					}
+					for(var  i = 1; i <= Dlast; i++) {
+					  if (i == new Date().getDate() && D.getFullYear() == new Date().getFullYear() && D.getMonth() == new Date().getMonth()) {
+					    calendar += '<td class="today">' + i;
+					  }else{
+					    calendar += '<td>' + i;
+					  }
+					  if (new Date(D.getFullYear(),D.getMonth(),i).getDay() == 0) {
+					    calendar += '<tr>';
+					  }
+					}
+					for(var  i = DNlast; i < 7; i++) calendar += '<td>&nbsp;';
+					document.querySelector('#'+id+' tbody').innerHTML = calendar;
+					document.querySelector('#'+id+' thead td:nth-child(2)').innerHTML = month[D.getMonth()] +' '+ D.getFullYear();
+					document.querySelector('#'+id+' thead td:nth-child(2)').dataset.month = D.getMonth();
+					document.querySelector('#'+id+' thead td:nth-child(2)').dataset.year = D.getFullYear();
+					if (document.querySelectorAll('#'+id+' tbody tr').length < 6) {  // чтобы при перелистывании месяцев не "подпрыгивала" вся страница, добавляется ряд пустых клеток. Итог: всегда 6 строк для цифр
+					    document.querySelector('#'+id+' tbody').innerHTML += '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
+					}
+					}
+					Calendar2("calendar2", new Date().getFullYear(), new Date().getMonth());
+					// переключатель минус месяц
+					document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function() {
+					  Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)-1);
+					}
+					// переключатель плюс месяц
+					document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3)').onclick = function() {
+					  Calendar2("calendar2", document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year, parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month)+1);
+					}
+					</script>
+				</div>
+				<!--flash game-->
+				<div>
+					<object class="game-src" id="iplayer-game"  style="z-index: 2; display:block!important; background-color:white" id="swfgame_o" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" wmode="window" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="100%" height="100%">
+		            <param name="allowScriptAccess" value="sameDomain">
+		                        <param name="movie" value="http://cdn.game-game.com.ua/games/117173.swf">
+		            <param name="quality" value="high">
+		            <param name="allownetworking" value="internal">
+
+		            <embed id="swfgame_e" id="iplayer-game" src="http://cdn.game-game.com.ua/games/117173.swf"   width="100%" height="100%" allowScriptAccess="sameDomain" allownetworking="internal" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+		            </embed>
+		          </object>
+				</div>
+				<p><a href="http://www.game-game.com.ua/117173/" class="alert-link">game-game.com.ua</a></p>
+			</div>
+			<div class="invisible col-md-1"></div>
+			<div class="col-md-7 alert alert-secondary" role="alert">	
+				<h3>About</h3><br>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas saepe iste, ipsum debitis, distinctio libero repellendus obcaecati quas commodi repudiandae quod non itaque officiis laborum officia minima tempora quisquam quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime ullam cum, illum earum quas omnis distinctio atque sequi, natus veritatis voluptates delectus inventore placeat consequuntur? Voluptate praesentium vitae eius? Temporibus?
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md alert alert-secondary">
+				<h3>Video</h3><br>
+				<div>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/3CeYsZdvR64" allowfullscreen></iframe>
+					</div><br>
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/LEeWQ0onKx8" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="alert alert-dark" role="alert">
+	 		<h4>О сайте</h4>
+	 		Я продолжаю изучать вёрстку сайтов. Етот сайт является второй моей работой. В ней я использовал библиотеку Bootstrap и Jquery. Вышеприведенные видео и игра были выложены без согласия авторов и не являются целью присвоить себе их авторство или раскрутки сайта. 
+		</div>
+	</footer>
+	<!--scripts-->
+	<!--bootstrap-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
